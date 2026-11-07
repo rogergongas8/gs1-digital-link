@@ -1179,23 +1179,76 @@ export const GS1StudioApp: React.FC = () => {
       </main>
 
       {/* Technical & Legal Standards Footer */}
-      <footer className="mt-10 border-t border-slate-800 bg-[#080B11] py-6 px-4 sm:px-6 text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="space-y-1 max-w-3xl">
-            <div className="flex items-center gap-2 font-mono text-slate-200 font-bold">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>
-                GS1 Digital Link Standard Release 1.3 · ISO/IEC 18004:2015 · EU ESPR (2024/1781)
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
-              {lang === "en"
-                ? "All 1D EAN-13 and 2D QR symbols are generated locally in your browser using Reed-Solomon GF(2^8) error correction and Modulo-10 check digit verification."
-                : "Todos los símbolos 1D EAN-13 y 2D QR se generan localmente aplicando corrección de errores Reed-Solomon GF(2^8) y verificación Módulo-10."}
-            </p>
+      <footer className="mt-10 border-t border-slate-800 bg-[#080B11] py-8 px-4 sm:px-6 text-xs text-slate-400">
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Clean Collapsible SEO & GEO Technical FAQ Strip */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 border-b border-slate-800/80 pb-6">
+            <details className="bg-[#0F1623] border border-slate-800 p-3.5">
+              <summary className="font-mono font-bold text-slate-200 cursor-pointer list-none flex items-center justify-between gap-2">
+                <span>
+                  {lang === "en"
+                    ? "What is GS1 Sunrise 2027?"
+                    : "¿Qué es el cambio GS1 Sunrise 2027?"}
+                </span>
+                <span className="text-emerald-400">+</span>
+              </summary>
+              <p className="mt-2 text-[11px] text-slate-400 leading-relaxed">
+                {lang === "en"
+                  ? "Starting in 2027, retail POS scanners worldwide are transitioning from 1D linear barcodes (EAN-13 / UPC-A) to 2D QR codes powered by GS1 Digital Link. One symbol scans at checkout AND opens a web passport on phones."
+                  : "A partir de 2027, los supermercados de todo el mundo sustituyen el código de barras 1D antiguo por el nuevo QR 2D GS1 Digital Link, que pasa por caja registradora y a la vez abre la ficha web en el móvil."}
+              </p>
+            </details>
+
+            <details className="bg-[#0F1623] border border-slate-800 p-3.5">
+              <summary className="font-mono font-bold text-slate-200 cursor-pointer list-none flex items-center justify-between gap-2">
+                <span>
+                  {lang === "en"
+                    ? "Should I keep the 1D EAN-13 barcode?"
+                    : "¿Debo mantener también las barras 1D?"}
+                </span>
+                <span className="text-emerald-400">+</span>
+              </summary>
+              <p className="mt-2 text-[11px] text-slate-400 leading-relaxed">
+                {lang === "en"
+                  ? "During the 2026–2027 transition period, GS1 recommends printing a Hybrid Label (1D EAN-13 + 2D QR side by side). Use Tab '2. EAN + QR' above to export both together."
+                  : "Durante la transición 2026–2027 se recomienda usar la Etiqueta Híbrida (barras 1D + QR 2D juntos). Puedes descargarla gratis en la pestaña '2. EAN + QR'."}
+              </p>
+            </details>
+
+            <details className="bg-[#0F1623] border border-slate-800 p-3.5">
+              <summary className="font-mono font-bold text-slate-200 cursor-pointer list-none flex items-center justify-between gap-2">
+                <span>
+                  {lang === "en"
+                    ? "Is it compliant with EU DPP (ESPR)?"
+                    : "¿Cumple con el Pasaporte Digital UE?"}
+                </span>
+                <span className="text-emerald-400">+</span>
+              </summary>
+              <p className="mt-2 text-[11px] text-slate-400 leading-relaxed">
+                {lang === "en"
+                  ? "Yes. Regulation (EU) 2024/1781 (ESPR) allows using a GS1 Digital Link QR code as the data carrier for your EU Digital Product Passport, including 97/129/EC packaging codes and carbon footprint."
+                  : "Sí. El Reglamento (UE) 2024/1781 permite usar el mismo QR GS1 como portador del Pasaporte Digital de Producto Europeo sin necesidad de poner dos códigos QR en el envase."}
+              </p>
+            </details>
           </div>
-          <div className="font-mono text-[11px] text-slate-500 shrink-0">
-            GS1Link.studio // Sunrise 2027 Ready
+
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="space-y-1 max-w-3xl">
+              <div className="flex items-center gap-2 font-mono text-slate-200 font-bold">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>
+                  GS1 Digital Link Standard Release 1.3 · ISO/IEC 18004:2015 · EU ESPR (2024/1781)
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                {lang === "en"
+                  ? "All 1D EAN-13 and 2D QR symbols are generated locally in your browser using Reed-Solomon GF(2^8) error correction and Modulo-10 check digit verification."
+                  : "Todos los símbolos 1D EAN-13 y 2D QR se generan localmente aplicando corrección de errores Reed-Solomon GF(2^8) y verificación Módulo-10."}
+              </p>
+            </div>
+            <div className="font-mono text-[11px] text-slate-500 shrink-0">
+              GS1Link.studio // Sunrise 2027 Ready
+            </div>
           </div>
         </div>
       </footer>
