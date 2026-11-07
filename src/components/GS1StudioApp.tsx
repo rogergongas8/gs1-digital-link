@@ -366,6 +366,56 @@ export const GS1StudioApp: React.FC = () => {
 
       {/* Main Workstation Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-5">
+        {/* Clear 3-Step Guide + "Create Blank Barcode" CTA */}
+        <div className="mb-5 p-4 sm:p-5 bg-gradient-to-r from-emerald-950/60 via-[#0F1623] to-[#0F1623] border border-emerald-500/40 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="space-y-1.5 max-w-2xl">
+            <span className="inline-block font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 bg-emerald-500 text-slate-950 font-bold">
+              {lang === "en"
+                ? "HOW IT WORKS · 3 SIMPLE STEPS"
+                : "¿CÓMO FUNCIONA? · EN 3 PASOS SIMPLES"}
+            </span>
+            <h2 className="text-lg sm:text-xl font-bold text-white">
+              {lang === "en"
+                ? "Turn your regular EAN/UPC barcode into an official 2027 2D QR Code"
+                : "Convierte tu código de barras EAN/UPC en el nuevo QR Oficial 2027"}
+            </h2>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              {lang === "en"
+                ? "1. Enter your 13-digit EAN or 12-digit UPC barcode below → 2. Add optional batch/expiry & EU Passport data → 3. Download your print-ready .SVG or 300 DPI .PNG!"
+                : "1. Introduce abajo tu código EAN-13 o UPC de siempre → 2. Añade lote, caducidad y datos de envase → 3. ¡Descarga tu etiqueta QR en .PNG o .SVG lista para imprenta!"}
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() =>
+              setForm({
+                resolverDomain: "id.mimarca.com",
+                gtin: "8400000000008",
+                batchLot: "LOTE-01",
+                serialNumber: "",
+                expiryDate: "2027-12-31",
+                productionDate: "",
+                netWeightKg: "0.500",
+                productName:
+                  lang === "en" ? "My Commercial Product" : "Mi Producto Comercial",
+                brandName: lang === "en" ? "My Brand" : "Mi Marca",
+                originCountry: lang === "en" ? "Spain (ES)" : "España (ES)",
+                packagingMaterial: "GL 70 Glass / PAP 21",
+                carbonFootprintKg: "0.40",
+              })
+            }
+            className="h-11 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-lg shadow-emerald-500/15"
+          >
+            <QrCode className="w-4 h-4" />
+            <span>
+              {lang === "en"
+                ? "+ Create New Barcode from Scratch"
+                : "+ Crear Mi Propio QR desde Cero"}
+            </span>
+          </button>
+        </div>
+
         {/* Compact Preset & Live URI Bar */}
         <div className="mb-5 p-3.5 bg-[#0F1623] border border-slate-800 space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-2.5">
