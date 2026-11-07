@@ -5,14 +5,16 @@
 @tailwind utilities;
 
 :root {
-  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {
-  background-color: #0B0F17;
-  color: #F1F5F9;
+  background-color: #F8FAFC;
+  color: #1E293B;
   font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-mono {
