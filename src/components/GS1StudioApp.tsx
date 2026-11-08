@@ -34,10 +34,10 @@ const PRESETS: Record<
     expiryDate: "2027-12-31",
     productionDate: "2026-10-15",
     netWeightKg: "0.500",
-    productName: "Aceite de Oliva Virgen Extra Ecológico 500ml",
+    productName: "Organic Extra Virgin Olive Oil 500ml",
     brandName: "OleoSur Organics",
-    originCountry: "España (ES)",
-    packagingMaterial: "Vidrio GL 71 / Tapón ALU 41",
+    originCountry: "Spain (ES)",
+    packagingMaterial: "Glass Bottle GL 71 / Cap ALU 41",
     carbonFootprintKg: "0.62",
   },
   supplementUs: {
@@ -75,7 +75,7 @@ const PRESETS: Record<
 };
 
 export const GS1StudioApp: React.FC = () => {
-  const [lang, setLang] = useState<"en" | "es">("es");
+  const [lang, setLang] = useState<"en" | "es">("en");
   const [activeTab, setActiveTab] = useState<"2d" | "hybrid" | "dpp">("2d");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [copiedUri, setCopiedUri] = useState(false);
@@ -305,17 +305,6 @@ export const GS1StudioApp: React.FC = () => {
             <div className="flex rounded-xl bg-[#E4E0D8] p-1 text-xs font-semibold">
               <button
                 type="button"
-                onClick={() => setLang("es")}
-                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
-                  lang === "es"
-                    ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
-                    : "text-[#66635B] hover:text-[#181816]"
-                }`}
-              >
-                ES
-              </button>
-              <button
-                type="button"
                 onClick={() => setLang("en")}
                 className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
                   lang === "en"
@@ -324,6 +313,17 @@ export const GS1StudioApp: React.FC = () => {
                 }`}
               >
                 EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang("es")}
+                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  lang === "es"
+                    ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
+                    : "text-[#66635B] hover:text-[#181816]"
+                }`}
+              >
+                ES
               </button>
             </div>
           </div>
