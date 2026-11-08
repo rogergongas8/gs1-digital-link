@@ -19,6 +19,7 @@ import {
 import { GS1BrandLogo } from "@/components/GS1BrandLogo";
 import { buildGS1DigitalLink, GS1DigitalLinkInput } from "@/lib/gs1-engine";
 import { generateQRMatrix } from "@/lib/qr-encoder";
+import { SEO_GS1_TOOLS, SeoGS1Tool } from "@/data/seo-tools";
 
 const PRESETS: Record<
   string,
@@ -74,25 +75,33 @@ const PRESETS: Record<
   },
 };
 
-export const GS1StudioApp: React.FC = () => {
+export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
+  initialTool,
+}) => {
   const [lang, setLang] = useState<"en" | "es">("en");
-  const [activeTab, setActiveTab] = useState<"2d" | "hybrid" | "dpp">("2d");
+  const [activeTab, setActiveTab] = useState<"2d" | "hybrid" | "dpp">(
+    initialTool?.defaultTab || "2d"
+  );
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [copiedUri, setCopiedUri] = useState(false);
 
+  const startPreset = initialTool
+    ? PRESETS[initialTool.defaultPresetKey]
+    : PRESETS.oliveOil;
+
   const [form, setForm] = useState<GS1DigitalLinkInput>({
-    resolverDomain: PRESETS.oliveOil.resolverDomain,
-    gtin: PRESETS.oliveOil.gtin,
-    batchLot: PRESETS.oliveOil.batchLot,
-    serialNumber: PRESETS.oliveOil.serialNumber,
-    expiryDate: PRESETS.oliveOil.expiryDate,
-    productionDate: PRESETS.oliveOil.productionDate,
-    netWeightKg: PRESETS.oliveOil.netWeightKg,
-    productName: PRESETS.oliveOil.productName,
-    brandName: PRESETS.oliveOil.brandName,
-    originCountry: PRESETS.oliveOil.originCountry,
-    packagingMaterial: PRESETS.oliveOil.packagingMaterial,
-    carbonFootprintKg: PRESETS.oliveOil.carbonFootprintKg,
+    resolverDomain: startPreset.resolverDomain,
+    gtin: startPreset.gtin,
+    batchLot: startPreset.batchLot,
+    serialNumber: startPreset.serialNumber,
+    expiryDate: startPreset.expiryDate,
+    productionDate: startPreset.productionDate,
+    netWeightKg: startPreset.netWeightKg,
+    productName: startPreset.productName,
+    brandName: startPreset.brandName,
+    originCountry: startPreset.originCountry,
+    packagingMaterial: startPreset.packagingMaterial,
+    carbonFootprintKg: startPreset.carbonFootprintKg,
   });
 
   const isEn = lang === "en";
@@ -293,13 +302,15 @@ export const GS1StudioApp: React.FC = () => {
       {/* Swiss Industrial Header */}
       <header className="sticky top-0 z-40 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-[#D8D3C8] py-3.5 px-4 sm:px-8">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-          <GS1BrandLogo
-            subtitle={
-              isEn
-                ? "Optical 2D Barcode & EU Product Passport Generator"
-                : "Estudio de Códigos 2D GS1 Sunrise 2027 y Pasaporte UE"
-            }
-          />
+          <a href="/" className="hover:opacity-90 transition-opacity">
+            <GS1BrandLogo
+              subtitle={
+                isEn
+                  ? "Optical 2D Barcode & EU Product Passport Generator"
+                  : "Estudio de Códigos 2D GS1 Sunrise 2027 y Pasaporte UE"
+              }
+            />
+          </a>
 
           <div className="flex items-center gap-2.5">
             <div className="flex rounded-xl bg-[#E4E0D8] p-1 text-xs font-semibold">
@@ -336,12 +347,20 @@ export const GS1StudioApp: React.FC = () => {
         <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-5">
           <div>
             <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#181816] tracking-tight">
-              {isEn
+              {initialTool
+                ? isEn
+                  ? initialTool.h1En
+                  : initialTool.h1Es
+                : isEn
                 ? "Convert your barcode into a 2027 2D QR Code"
                 : "Convierte tu código de barras en el nuevo QR 2027"}
             </h1>
-            <p className="text-sm text-[#66635B] mt-1">
-              {isEn
+            <p className="text-sm text-[#66635B] mt-1 max-w-2xl">
+              {initialTool
+                ? isEn
+                  ? initialTool.subtitleEn
+                  : initialTool.subtitleEs
+                : isEn
                 ? "1. Enter your EAN or UPC number · 2. Add batch & expiry date · 3. Download your print-ready QR."
                 : "1. Introduce tu número EAN o UPC · 2. Añade lote y caducidad · 3. Descarga tu matriz lista para imprenta."}
             </p>
@@ -922,6 +941,26 @@ export const GS1StudioApp: React.FC = () => {
                   : "Sí. El Reglamento (UE) 2024/1781 permite usar este mismo QR como portador del Pasaporte Digital de Producto."}
               </p>
             </details>
+          </div>
+
+          {/* Programmatic SEO Tools Directory */}
+          <div className="pt-4 border-t border-[#E4E0D8]">
+            <p className="font-semibold text-[#181816] mb-2.5">
+              {isEn
+                ? "Specialized Barcode & GS1 2D QR Tools:"
+                : "Herramientas Específicas de Código de Barras y QR GS1:"}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {SEO_GS1_TOOLS.map((tool) => (
+                <a
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className="px-3 py-1 rounded-lg bg-white border border-[#D8D3C8] hover:border-[#1D3E8A] text-xs text-[#4D4A44] hover:text-[#181816] transition-colors"
+                >
+                  {isEn ? tool.navLabelEn : tool.navLabelEs}
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#E4E0D8] text-[#858075]">
