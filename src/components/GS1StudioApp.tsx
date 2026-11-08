@@ -294,7 +294,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 onClick={() => setLang("en")}
                 className={`px-2 py-1 rounded-md transition-all cursor-pointer ${
                   lang === "en"
-                    ? "bg-white text-neutral-900 shadow-2xs"
+                    ? "bg-white text-blue-700 font-semibold shadow-2xs"
                     : "text-neutral-500 hover:text-neutral-900"
                 }`}
               >
@@ -305,7 +305,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 onClick={() => setLang("es")}
                 className={`px-2 py-1 rounded-md transition-all cursor-pointer ${
                   lang === "es"
-                    ? "bg-white text-neutral-900 shadow-2xs"
+                    ? "bg-white text-blue-700 font-semibold shadow-2xs"
                     : "text-neutral-500 hover:text-neutral-900"
                 }`}
               >
@@ -584,7 +584,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                   onClick={() => setActiveTab("2d")}
                   className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
                     activeTab === "2d"
-                      ? "bg-white text-neutral-900 shadow-2xs"
+                      ? "bg-blue-600 text-white font-semibold shadow-2xs"
                       : "text-neutral-500 hover:text-neutral-900"
                   }`}
                 >
@@ -595,7 +595,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                   onClick={() => setActiveTab("hybrid")}
                   className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
                     activeTab === "hybrid"
-                      ? "bg-white text-neutral-900 shadow-2xs"
+                      ? "bg-blue-600 text-white font-semibold shadow-2xs"
                       : "text-neutral-500 hover:text-neutral-900"
                   }`}
                 >
@@ -606,7 +606,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                   onClick={() => setActiveTab("dpp")}
                   className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
                     activeTab === "dpp"
-                      ? "bg-white text-neutral-900 shadow-2xs"
+                      ? "bg-blue-600 text-white font-semibold shadow-2xs"
                       : "text-neutral-500 hover:text-neutral-900"
                   }`}
                 >
@@ -786,7 +786,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 <button
                   type="button"
                   onClick={handleDownload2DPNG}
-                  className="h-10 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="h-10 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
                 >
                   <ImageIcon className="w-3.5 h-3.5" />
                   <span>{isEn ? "Download PNG" : "Descargar PNG"}</span>
@@ -799,7 +799,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                       ? handleDownloadHybridSVG
                       : handleDownload2DSVG
                   }
-                  className="h-10 px-4 rounded-xl bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-200 text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="h-10 px-4 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>{isEn ? "Download SVG" : "Descargar SVG"}</span>

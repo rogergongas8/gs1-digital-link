@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { validateAndNormalizeGTIN } from "@/lib/gs1-engine";
+import { GS1BrandLogo } from "@/components/GS1BrandLogo";
 
 function GS1ResolverContent() {
   const params = useParams();
@@ -62,26 +63,37 @@ function GS1ResolverContent() {
 
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 py-10 px-4 flex flex-col items-center justify-center font-sans">
-      <div className="max-w-lg w-full bg-[#111927] border border-slate-800 p-6 shadow-2xl space-y-6">
-        {/* Top Resolver Status Bar */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-              <QrCode className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400 font-bold block">
-                LIVE GS1 DIGITAL LINK RESOLVER
-              </span>
-              <span className="font-mono text-xs text-slate-400">
-                ISO/IEC 18004 · EU ESPR (2024/1781)
-              </span>
-            </div>
-          </div>
-          <span className="font-mono text-[10px] px-2.5 py-1 bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">
+      <div className="max-w-lg w-full space-y-4">
+        {/* Top Header with Brand Logo */}
+        <div className="flex items-center justify-between px-1">
+          <Link href="/" className="hover:opacity-85 transition-opacity">
+            <GS1BrandLogo size="sm" />
+          </Link>
+          <span className="font-mono text-[10px] px-2.5 py-1 bg-blue-500/15 text-blue-300 border border-blue-500/30 font-bold rounded-full">
             0% COOKIES
           </span>
         </div>
+
+        <div className="bg-[#111927] border border-slate-800 p-6 shadow-2xl space-y-6 rounded-2xl">
+          {/* Top Resolver Status Bar */}
+          <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 bg-blue-500/15 border border-blue-500/40 flex items-center justify-center text-blue-400 rounded-lg">
+                <QrCode className="w-4 h-4" />
+              </div>
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400 font-bold block">
+                  LIVE GS1 DIGITAL LINK RESOLVER
+                </span>
+                <span className="font-mono text-xs text-slate-400">
+                  ISO/IEC 18004 · EU ESPR (2024/1781)
+                </span>
+              </div>
+            </div>
+            <span className="font-mono text-[10px] text-slate-400">
+              Release 1.3
+            </span>
+          </div>
 
         {/* Product Header */}
         <div className="bg-white text-slate-950 p-5 border-l-4 border-emerald-500 space-y-2">
@@ -183,7 +195,7 @@ function GS1ResolverContent() {
         <div className="pt-1 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-emerald-400 hover:text-emerald-300 underline"
+            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-blue-400 hover:text-blue-300 underline"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to GS1Link.studio Generator</span>
@@ -191,6 +203,7 @@ function GS1ResolverContent() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
 
