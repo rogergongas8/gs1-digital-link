@@ -9,10 +9,8 @@ import {
   Check,
   Smartphone,
   Wrench,
-  ShieldCheck,
   ExternalLink,
   Image as ImageIcon,
-  Plus,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
@@ -54,7 +52,7 @@ const PRESETS: Record<
     productName: "100% Grass-Fed Whey Isolate Vanilla",
     brandName: "Apex Nutrition Labs",
     originCountry: "USA (US)",
-    packagingMaterial: "Envase Reciclable HDPE 02",
+    packagingMaterial: "Recyclable HDPE 02",
     carbonFootprintKg: "1.45",
   },
   cosmeticsFr: {
@@ -69,8 +67,8 @@ const PRESETS: Record<
     netWeightKg: "0.030",
     productName: "Sérum Concentré Acide Hyaluronique 2%",
     brandName: "Lumière Botanique Paris",
-    originCountry: "Francia (FR)",
-    packagingMaterial: "Frasco Vidrio GL 70",
+    originCountry: "France (FR)",
+    packagingMaterial: "Glass Bottle GL 70",
     carbonFootprintKg: "0.28",
   },
 };
@@ -155,23 +153,6 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
     setTimeout(() => setCopiedUri(false), 2000);
   };
 
-  const handleStartBlank = () => {
-    setForm({
-      resolverDomain: "id.mimarca.com",
-      gtin: "8400000000008",
-      batchLot: "LOTE-01",
-      serialNumber: "",
-      expiryDate: "2027-12-31",
-      productionDate: "",
-      netWeightKg: "0.500",
-      productName: isEn ? "My Product Name" : "Nombre de mi producto",
-      brandName: isEn ? "My Brand" : "Mi Marca",
-      originCountry: isEn ? "Spain (ES)" : "España (ES)",
-      packagingMaterial: "Vidrio GL 70 / Cartón PAP 21",
-      carbonFootprintKg: "0.40",
-    });
-  };
-
   const build2DSVGString = () => {
     const quietZone = 4;
     const moduleSize = 8;
@@ -188,7 +169,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
         if (qrMatrix.modules[r][c]) {
           const x = offsetX + (c + quietZone) * moduleSize;
           const y = offsetY + (r + quietZone) * moduleSize;
-          paths += `<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}" fill="#181816"/>`;
+          paths += `<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}" fill="#171717"/>`;
         }
       }
     }
@@ -198,10 +179,10 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
       svgHeight,
       svgContent: `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">
-  <rect width="${svgWidth}" height="${svgHeight}" fill="#FFFFFF" stroke="#D8D3C8" stroke-width="2" rx="12"/>
+  <rect width="${svgWidth}" height="${svgHeight}" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="2" rx="12"/>
   ${paths}
-  <text x="${svgWidth / 2}" y="${offsetY + qrPixelSize + 24}" text-anchor="middle" font-family="Courier New, monospace" font-size="12" font-weight="bold" fill="#181816">${gs1Result.hriString}</text>
-  <text x="${svgWidth / 2}" y="${offsetY + qrPixelSize + 44}" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#66635B">GS1 Digital Link · GTIN: ${gs1Result.gtinValidation.gtin14}</text>
+  <text x="${svgWidth / 2}" y="${offsetY + qrPixelSize + 24}" text-anchor="middle" font-family="Courier New, monospace" font-size="12" font-weight="bold" fill="#171717">${gs1Result.hriString}</text>
+  <text x="${svgWidth / 2}" y="${offsetY + qrPixelSize + 44}" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#737373">GS1 Digital Link · GTIN: ${gs1Result.gtinValidation.gtin14}</text>
 </svg>`,
     };
   };
@@ -257,7 +238,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
         const isGuard = i < 3 || (i >= 45 && i < 50) || i >= 92;
         eanRects += `<rect x="${36 + i * 2}" y="38" width="2" height="${
           isGuard ? 108 : 96
-        }" fill="#181816"/>`;
+        }" fill="#171717"/>`;
       }
     }
 
@@ -271,19 +252,19 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
           qrRects += `<rect x="${(qrOffsetX + c * qrScale).toFixed(2)}" y="${(
             qrOffsetY +
             r * qrScale
-          ).toFixed(2)}" width="${qrScale}" height="${qrScale}" fill="#181816"/>`;
+          ).toFixed(2)}" width="${qrScale}" height="${qrScale}" fill="#171717"/>`;
         }
       }
     }
 
     const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">
-  <rect width="${svgWidth}" height="${svgHeight}" fill="#FFFFFF" stroke="#D8D3C8" stroke-width="2" rx="12"/>
+  <rect width="${svgWidth}" height="${svgHeight}" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="2" rx="12"/>
   ${eanRects}
-  <text x="131" y="162" text-anchor="middle" font-family="Courier New, monospace" font-size="15" font-weight="bold" fill="#181816">${gs1Result.ean13Bars.ean13}</text>
-  <line x1="258" y1="30" x2="258" y2="170" stroke="#C5BEB0" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="131" y="162" text-anchor="middle" font-family="Courier New, monospace" font-size="15" font-weight="bold" fill="#171717">${gs1Result.ean13Bars.ean13}</text>
+  <line x1="258" y1="30" x2="258" y2="170" stroke="#D4D4D4" stroke-width="1.5" stroke-dasharray="4 4"/>
   ${qrRects}
-  <text x="240" y="198" text-anchor="middle" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#181816">${gs1Result.hriString}</text>
+  <text x="240" y="198" text-anchor="middle" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#171717">${gs1Result.hriString}</text>
 </svg>`;
 
     const blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
@@ -298,29 +279,23 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#EFECE6] text-[#181816]">
-      {/* Swiss Industrial Header */}
-      <header className="sticky top-0 z-40 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-[#D8D3C8] py-3.5 px-4 sm:px-8">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-          <a href="/" className="hover:opacity-90 transition-opacity">
-            <GS1BrandLogo
-              subtitle={
-                isEn
-                  ? "Optical 2D Barcode & EU Product Passport Generator"
-                  : "Estudio de Códigos 2D GS1 Sunrise 2027 y Pasaporte UE"
-              }
-            />
+    <div className="min-h-screen flex flex-col bg-[#FAFAFA] text-neutral-900">
+      {/* Minimal Header */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-neutral-200/80 py-3 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
+          <a href="/" className="hover:opacity-80 transition-opacity">
+            <GS1BrandLogo />
           </a>
 
-          <div className="flex items-center gap-2.5">
-            <div className="flex rounded-xl bg-[#E4E0D8] p-1 text-xs font-semibold">
+          <div className="flex items-center gap-2">
+            <div className="flex rounded-lg bg-neutral-100 p-0.5 text-xs font-medium">
               <button
                 type="button"
                 onClick={() => setLang("en")}
-                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-2 py-1 rounded-md transition-all cursor-pointer ${
                   lang === "en"
-                    ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
-                    : "text-[#66635B] hover:text-[#181816]"
+                    ? "bg-white text-neutral-900 shadow-2xs"
+                    : "text-neutral-500 hover:text-neutral-900"
                 }`}
               >
                 EN
@@ -328,10 +303,10 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
               <button
                 type="button"
                 onClick={() => setLang("es")}
-                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-2 py-1 rounded-md transition-all cursor-pointer ${
                   lang === "es"
-                    ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
-                    : "text-[#66635B] hover:text-[#181816]"
+                    ? "bg-white text-neutral-900 shadow-2xs"
+                    : "text-neutral-500 hover:text-neutral-900"
                 }`}
               >
                 ES
@@ -342,70 +317,47 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-8 py-8">
-        {/* Swiss Typography Intro Header */}
-        <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-5">
-          <div>
-            <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#181816] tracking-tight">
-              {initialTool
-                ? isEn
-                  ? initialTool.h1En
-                  : initialTool.h1Es
-                : isEn
-                ? "Convert your barcode into a 2027 2D QR Code"
-                : "Convierte tu código de barras en el nuevo QR 2027"}
-            </h1>
-            <p className="text-sm text-[#66635B] mt-1 max-w-2xl">
-              {initialTool
-                ? isEn
-                  ? initialTool.subtitleEn
-                  : initialTool.subtitleEs
-                : isEn
-                ? "1. Enter your EAN or UPC number · 2. Add batch & expiry date · 3. Download your print-ready QR."
-                : "1. Introduce tu número EAN o UPC · 2. Añade lote y caducidad · 3. Descarga tu matriz lista para imprenta."}
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleStartBlank}
-            className="px-4 py-2.5 rounded-xl bg-[#1D3E8A] hover:bg-[#152E69] text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-2xs transition-all shrink-0 cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            <span>
-              {isEn ? "New Blank Barcode" : "Empezar Código en Blanco"}
-            </span>
-          </button>
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8">
+        {/* Clean Intro */}
+        <div className="mb-6">
+          <h1 className="text-xl sm:text-2xl font-semibold text-neutral-900 tracking-tight">
+            {initialTool
+              ? isEn
+                ? initialTool.h1En
+                : initialTool.h1Es
+              : isEn
+              ? "GS1 Sunrise 2027 2D Barcode & QR Generator"
+              : "Generador de Códigos QR 2D GS1 Sunrise 2027"}
+          </h1>
+          <p className="text-sm text-neutral-500 mt-1">
+            {initialTool
+              ? isEn
+                ? initialTool.subtitleEn
+                : initialTool.subtitleEs
+              : isEn
+              ? "Convert your EAN-13 or UPC barcode into an official 2D QR code with batch and expiry."
+              : "Convierte tu código de barras EAN-13 o UPC en un QR 2D oficial con lote y caducidad."}
+          </p>
         </div>
 
         {/* Clean 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left 7 Columns: Single Clean Card */}
+          {/* Left 7 Columns */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-[#FBF9F5] rounded-2xl border border-[#D8D3C8] shadow-2xs p-6 sm:p-7 space-y-6">
-              {/* Top Row: Title + Quick Examples */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E4E0D8] pb-4">
-                <div>
-                  <h2 className="font-display text-base font-bold text-[#181816]">
-                    {isEn ? "1. Product Barcode & Lot" : "1. Código de barras y lote"}
-                  </h2>
-                  <p className="text-xs text-[#66635B]">
-                    {isEn
-                      ? "Compatible with 13-digit EAN, 12-digit UPC, and 14-digit GTIN."
-                      : "Compatible con códigos EAN-13 (Europa) y UPC-A (EE. UU.)."}
-                  </p>
-                </div>
+            <div className="bg-white rounded-2xl border border-neutral-200/90 shadow-2xs p-6 space-y-5">
+              {/* Top Row */}
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h2 className="text-sm font-semibold text-neutral-900">
+                  {isEn ? "Barcode & Batch Details" : "Código de barras y lote"}
+                </h2>
 
                 <div className="flex items-center gap-1.5 text-xs">
-                  <span className="text-[#858075]">
-                    {isEn ? "Presets:" : "Ejemplos:"}
-                  </span>
                   {Object.entries(PRESETS).map(([key, preset]) => (
                     <button
                       key={key}
                       type="button"
                       onClick={() => setForm(preset)}
-                      className="px-2.5 py-1 rounded-md bg-[#E4E0D8] hover:bg-[#D8D3C8] text-[#33312E] font-medium transition-colors cursor-pointer"
+                      className="px-2.5 py-1 rounded-lg bg-neutral-100 hover:bg-neutral-200/70 text-neutral-600 font-medium transition-colors cursor-pointer"
                     >
                       {isEn ? preset.labelEn : preset.labelEs}
                     </button>
@@ -415,21 +367,19 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
 
               {/* Barcode Input + Modulo-10 Check */}
               <div>
-                <label className="block text-xs font-semibold text-[#33312E] mb-1.5">
-                  {isEn
-                    ? "Barcode Number (EAN-13 / UPC)"
-                    : "Número de tu código de barras (EAN-13 / UPC)"}
+                <label className="block text-xs font-medium text-neutral-600 mb-1.5">
+                  {isEn ? "GTIN / EAN-13 / UPC Number" : "Número EAN-13 / UPC"}
                 </label>
-                <div className="flex flex-col sm:flex-row gap-2.5">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="text"
                     value={form.gtin}
                     onChange={(e) => updateField("gtin", e.target.value)}
                     placeholder="8412345678905"
-                    className={`flex-1 h-11 px-4 rounded-xl font-mono text-base font-bold transition-all focus:outline-none ${
+                    className={`flex-1 h-10 px-3.5 rounded-xl font-mono text-sm font-semibold transition-all focus:outline-none ${
                       gs1Result.gtinValidation.isValid
-                        ? "bg-white border border-[#CFC9BC] focus:border-[#1D3E8A] text-[#181816]"
-                        : "bg-[#FDF2EE] border border-[#E06A4B] text-[#7D240D]"
+                        ? "bg-white border border-neutral-200 focus:border-neutral-900 text-neutral-900"
+                        : "bg-red-50/50 border border-red-300 text-red-900"
                     }`}
                   />
                   {!gs1Result.gtinValidation.isValid &&
@@ -437,30 +387,30 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                       <button
                         type="button"
                         onClick={handleAutoFixCheckDigit}
-                        className="px-4 h-11 rounded-xl bg-[#D94E28] hover:bg-[#BE3F1C] text-white text-xs font-semibold flex items-center gap-1.5 shrink-0 cursor-pointer"
+                        className="px-3.5 h-10 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium flex items-center gap-1.5 shrink-0 cursor-pointer"
                       >
                         <Wrench className="w-3.5 h-3.5" />
                         <span>
                           {isEn
-                            ? `Fix last digit to ${gs1Result.gtinValidation.expectedCheckDigit}`
-                            : `Corregir último dígito a ${gs1Result.gtinValidation.expectedCheckDigit}`}
+                            ? `Fix digit to ${gs1Result.gtinValidation.expectedCheckDigit}`
+                            : `Corregir dígito a ${gs1Result.gtinValidation.expectedCheckDigit}`}
                         </span>
                       </button>
                     )}
                 </div>
 
                 {gs1Result.gtinValidation.isValid ? (
-                  <p className="mt-2 text-xs text-[#2B5B44] flex items-center gap-1.5 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-[#2B5B44]" />
+                  <p className="mt-2 text-xs text-emerald-700 flex items-center gap-1.5 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     <span>
                       {isEn
-                        ? `Valid ${gs1Result.gtinValidation.barcodeType} barcode (${gs1Result.gtinValidation.gs1Organization})`
+                        ? `Valid ${gs1Result.gtinValidation.barcodeType} (${gs1Result.gtinValidation.gs1Organization})`
                         : `Código ${gs1Result.gtinValidation.barcodeType} válido (${gs1Result.gtinValidation.gs1Organization})`}
                     </span>
                   </p>
                 ) : (
-                  <p className="mt-2 text-xs text-[#B83716] flex items-center gap-1.5 font-medium">
-                    <AlertTriangle className="w-4 h-4 shrink-0" />
+                  <p className="mt-2 text-xs text-red-600 flex items-center gap-1.5 font-medium">
+                    <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                     <span>
                       {isEn
                         ? gs1Result.gtinValidation.errorMessageEn
@@ -473,10 +423,8 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
               {/* Simple 2-Column Batch & Expiry */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#33312E] mb-1.5">
-                    {isEn
-                      ? "Batch or Lot Number (optional)"
-                      : "Número de lote (opcional)"}
+                  <label className="block text-xs font-medium text-neutral-600 mb-1.5">
+                    {isEn ? "Batch / Lot (AI 10)" : "Lote (AI 10)"}
                   </label>
                   <input
                     type="text"
@@ -484,36 +432,34 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                     value={form.batchLot || ""}
                     onChange={(e) => updateField("batchLot", e.target.value)}
                     placeholder="LOT26A"
-                    className="w-full h-11 px-3.5 rounded-xl bg-white border border-[#CFC9BC] focus:border-[#1D3E8A] text-sm font-medium text-[#181816] focus:outline-none"
+                    className="w-full h-10 px-3.5 rounded-xl bg-white border border-neutral-200 focus:border-neutral-900 text-sm text-neutral-900 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#33312E] mb-1.5">
-                    {isEn
-                      ? "Expiration Date (optional)"
-                      : "Fecha de caducidad (opcional)"}
+                  <label className="block text-xs font-medium text-neutral-600 mb-1.5">
+                    {isEn ? "Expiry Date (AI 17)" : "Caducidad (AI 17)"}
                   </label>
                   <input
                     type="date"
                     value={form.expiryDate || ""}
                     onChange={(e) => updateField("expiryDate", e.target.value)}
-                    className="w-full h-11 px-3.5 rounded-xl bg-white border border-[#CFC9BC] focus:border-[#1D3E8A] text-sm font-medium text-[#181816] focus:outline-none"
+                    className="w-full h-10 px-3.5 rounded-xl bg-white border border-neutral-200 focus:border-neutral-900 text-sm text-neutral-900 focus:outline-none"
                   />
                 </div>
               </div>
 
-              {/* Collapsible Optional Section for Product Passport & Advanced Settings */}
-              <div className="pt-2 border-t border-[#E4E0D8]">
+              {/* Collapsible Optional Section */}
+              <div className="pt-2 border-t border-neutral-100">
                 <button
                   type="button"
                   onClick={() => setShowAdvanced(!showAdvanced)}
-                  className="w-full py-2 flex items-center justify-between text-xs font-semibold text-[#4D4A44] hover:text-[#181816] cursor-pointer"
+                  className="w-full py-1.5 flex items-center justify-between text-xs font-medium text-neutral-500 hover:text-neutral-900 cursor-pointer"
                 >
                   <span>
                     {isEn
-                      ? "2. Product Passport Details & Custom Domain (Optional)"
-                      : "2. Datos del producto para la vista móvil y dominio (Opcional)"}
+                      ? "Product Passport & Custom Domain (Optional)"
+                      : "Datos del producto y dominio propio (Opcional)"}
                   </span>
                   {showAdvanced ? (
                     <ChevronUp className="w-4 h-4" />
@@ -523,9 +469,9 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 </button>
 
                 {showAdvanced && (
-                  <div className="mt-4 pt-4 border-t border-[#E4E0D8] grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="mt-3 pt-3 border-t border-neutral-100 grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-medium text-[#4D4A44] mb-1">
+                      <label className="block text-xs font-medium text-neutral-600 mb-1">
                         {isEn ? "Product Name" : "Nombre del producto"}
                       </label>
                       <input
@@ -534,12 +480,12 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                         onChange={(e) =>
                           updateField("productName", e.target.value)
                         }
-                        className="w-full h-10 px-3.5 rounded-xl bg-white border border-[#CFC9BC] text-xs font-medium text-[#181816] focus:border-[#1D3E8A] focus:outline-none"
+                        className="w-full h-9 px-3 rounded-lg bg-white border border-neutral-200 text-xs text-neutral-900 focus:border-neutral-900 focus:outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#4D4A44] mb-1">
+                      <label className="block text-xs font-medium text-neutral-600 mb-1">
                         {isEn ? "Brand" : "Marca"}
                       </label>
                       <input
@@ -548,12 +494,12 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                         onChange={(e) =>
                           updateField("brandName", e.target.value)
                         }
-                        className="w-full h-10 px-3.5 rounded-xl bg-white border border-[#CFC9BC] text-xs font-medium text-[#181816] focus:border-[#1D3E8A] focus:outline-none"
+                        className="w-full h-9 px-3 rounded-lg bg-white border border-neutral-200 text-xs text-neutral-900 focus:border-neutral-900 focus:outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#4D4A44] mb-1">
+                      <label className="block text-xs font-medium text-neutral-600 mb-1">
                         {isEn ? "Origin Country" : "País de origen"}
                       </label>
                       <input
@@ -562,12 +508,12 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                         onChange={(e) =>
                           updateField("originCountry", e.target.value)
                         }
-                        className="w-full h-10 px-3.5 rounded-xl bg-white border border-[#CFC9BC] text-xs font-medium text-[#181816] focus:border-[#1D3E8A] focus:outline-none"
+                        className="w-full h-9 px-3 rounded-lg bg-white border border-neutral-200 text-xs text-neutral-900 focus:border-neutral-900 focus:outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#4D4A44] mb-1">
+                      <label className="block text-xs font-medium text-neutral-600 mb-1">
                         {isEn ? "Packaging Material" : "Material del envase"}
                       </label>
                       <input
@@ -576,12 +522,12 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                         onChange={(e) =>
                           updateField("packagingMaterial", e.target.value)
                         }
-                        className="w-full h-10 px-3.5 rounded-xl bg-white border border-[#CFC9BC] text-xs font-medium text-[#181816] focus:border-[#1D3E8A] focus:outline-none"
+                        className="w-full h-9 px-3 rounded-lg bg-white border border-neutral-200 text-xs text-neutral-900 focus:border-neutral-900 focus:outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-[#4D4A44] mb-1">
+                      <label className="block text-xs font-medium text-neutral-600 mb-1">
                         {isEn ? "Web Domain" : "Dominio web"}
                       </label>
                       <input
@@ -590,7 +536,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                         onChange={(e) =>
                           updateField("resolverDomain", e.target.value)
                         }
-                        className="w-full h-10 px-3.5 rounded-xl bg-white border border-[#CFC9BC] text-xs font-mono text-[#181816] focus:border-[#1D3E8A] focus:outline-none"
+                        className="w-full h-9 px-3 rounded-lg bg-white border border-neutral-200 text-xs font-mono text-neutral-900 focus:border-neutral-900 focus:outline-none"
                       />
                     </div>
                   </div>
@@ -598,30 +544,28 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
               </div>
 
               {/* Subtle Link Preview Bar */}
-              <div className="p-3.5 rounded-xl bg-[#F2EFE9] border border-[#D8D3C8] flex items-center justify-between gap-3">
+              <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-200/80 flex items-center justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <span className="text-[11px] font-medium text-[#66635B] block">
-                    {isEn
-                      ? "Generated GS1 Digital Link URL:"
-                      : "Enlace estándar GS1 codificado dentro del QR:"}
+                  <span className="text-[11px] text-neutral-400 block">
+                    GS1 Digital Link URI
                   </span>
-                  <p className="font-mono text-xs text-[#181816] truncate">
+                  <p className="font-mono text-xs text-neutral-800 truncate">
                     {gs1Result.canonicalUri}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={handleCopyUri}
-                  className="px-3 py-1.5 rounded-lg bg-[#FBF9F5] border border-[#CFC9BC] hover:bg-[#E4E0D8] text-xs font-semibold text-[#181816] flex items-center gap-1.5 shrink-0 cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-lg bg-white border border-neutral-200 hover:bg-neutral-50 text-xs font-medium text-neutral-700 flex items-center gap-1.5 shrink-0 cursor-pointer"
                 >
                   {copiedUri ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-[#2B5B44]" />
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
                       <span>{isEn ? "Copied" : "Copiado"}</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-[#66635B]" />
+                      <Copy className="w-3.5 h-3.5 text-neutral-500" />
                       <span>{isEn ? "Copy" : "Copiar"}</span>
                     </>
                   )}
@@ -631,28 +575,28 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
           </div>
 
           {/* Right 5 Columns: Sticky Clean Preview Card */}
-          <div className="lg:col-span-5 lg:sticky lg:top-24">
-            <div className="bg-[#FBF9F5] rounded-2xl border border-[#D8D3C8] shadow-2xs p-6 space-y-5">
-              {/* Warm Pill Tabs */}
-              <div className="flex rounded-xl bg-[#E4E0D8] p-1 text-xs font-semibold">
+          <div className="lg:col-span-5 lg:sticky lg:top-20">
+            <div className="bg-white rounded-2xl border border-neutral-200/90 shadow-2xs p-6 space-y-5">
+              {/* Pill Tabs */}
+              <div className="flex rounded-lg bg-neutral-100 p-1 text-xs font-medium">
                 <button
                   type="button"
                   onClick={() => setActiveTab("2d")}
-                  className={`flex-1 py-2 rounded-lg text-center transition-all cursor-pointer ${
+                  className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
                     activeTab === "2d"
-                      ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
-                      : "text-[#66635B] hover:text-[#181816]"
+                      ? "bg-white text-neutral-900 shadow-2xs"
+                      : "text-neutral-500 hover:text-neutral-900"
                   }`}
                 >
-                  {isEn ? "2D QR Code" : "Solo QR 2D"}
+                  {isEn ? "2D QR" : "QR 2D"}
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab("hybrid")}
-                  className={`flex-1 py-2 rounded-lg text-center transition-all cursor-pointer ${
+                  className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
                     activeTab === "hybrid"
-                      ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
-                      : "text-[#66635B] hover:text-[#181816]"
+                      ? "bg-white text-neutral-900 shadow-2xs"
+                      : "text-neutral-500 hover:text-neutral-900"
                   }`}
                 >
                   {isEn ? "Bars + QR" : "Barras + QR"}
@@ -660,10 +604,10 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 <button
                   type="button"
                   onClick={() => setActiveTab("dpp")}
-                  className={`flex-1 py-2 rounded-lg text-center transition-all cursor-pointer ${
+                  className={`flex-1 py-1.5 rounded-md text-center transition-all cursor-pointer ${
                     activeTab === "dpp"
-                      ? "bg-[#FBF9F5] text-[#181816] shadow-2xs"
-                      : "text-[#66635B] hover:text-[#181816]"
+                      ? "bg-white text-neutral-900 shadow-2xs"
+                      : "text-neutral-500 hover:text-neutral-900"
                   }`}
                 >
                   {isEn ? "Mobile View" : "Vista Móvil"}
@@ -672,11 +616,11 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
 
               {/* Tab 1: Clean 2D QR */}
               {activeTab === "2d" && (
-                <div className="py-5 px-4 rounded-xl bg-[#F2EFE9] border border-[#D8D3C8] flex flex-col items-center justify-center">
-                  <div className="bg-white p-4 rounded-2xl border border-[#CFC9BC] shadow-2xs">
+                <div className="py-5 px-4 rounded-xl bg-neutral-50 border border-neutral-200/80 flex flex-col items-center justify-center">
+                  <div className="bg-white p-4 rounded-xl border border-neutral-200/80">
                     <svg
                       viewBox={`0 0 ${qrMatrix.size + 4} ${qrMatrix.size + 4}`}
-                      className="w-44 h-44"
+                      className="w-40 h-40"
                       shapeRendering="crispEdges"
                     >
                       <rect
@@ -693,28 +637,23 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                               y={r + 2}
                               width={1}
                               height={1}
-                              fill="#181816"
+                              fill="#171717"
                             />
                           ) : null
                         )
                       )}
                     </svg>
                   </div>
-                  <p className="mt-3 font-mono text-xs font-bold text-[#181816] text-center">
+                  <p className="mt-3 font-mono text-xs font-semibold text-neutral-900 text-center">
                     {gs1Result.hriString}
-                  </p>
-                  <p className="mt-1 text-xs text-[#66635B]">
-                    {isEn
-                      ? "Scans at supermarket checkouts & phones"
-                      : "Válido para caja de supermercado y cámara de móvil"}
                   </p>
                 </div>
               )}
 
               {/* Tab 2: Hybrid 1D + 2D */}
               {activeTab === "hybrid" && (
-                <div className="p-5 rounded-xl bg-[#F2EFE9] border border-[#D8D3C8] space-y-3">
-                  <div className="bg-white p-4 rounded-xl border border-[#CFC9BC] flex flex-col sm:flex-row items-center justify-around gap-4">
+                <div className="p-5 rounded-xl bg-neutral-50 border border-neutral-200/80 space-y-3">
+                  <div className="bg-white p-4 rounded-xl border border-neutral-200/80 flex flex-col sm:flex-row items-center justify-around gap-4">
                     <div className="flex flex-col items-center">
                       <svg
                         viewBox="0 0 115 65"
@@ -734,7 +673,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                               y={6}
                               width={1}
                               height={isGuard ? 48 : 42}
-                              fill="#181816"
+                              fill="#171717"
                             />
                           ) : null;
                         })}
@@ -745,7 +684,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                           fontFamily="Courier New, monospace"
                           fontSize="8.5"
                           fontWeight="bold"
-                          fill="#181816"
+                          fill="#171717"
                         >
                           {gs1Result.ean13Bars.ean13}
                         </text>
@@ -772,7 +711,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                                 y={r + 2}
                                 width={1}
                                 height={1}
-                                fill="#181816"
+                                fill="#171717"
                               />
                             ) : null
                           )
@@ -780,7 +719,7 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                       </svg>
                     </div>
                   </div>
-                  <p className="font-mono text-xs text-center font-semibold text-[#181816]">
+                  <p className="font-mono text-xs text-center font-semibold text-neutral-900">
                     {gs1Result.hriString}
                   </p>
                 </div>
@@ -788,57 +727,52 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
 
               {/* Tab 3: Mobile View */}
               {activeTab === "dpp" && (
-                <div className="p-5 rounded-xl bg-[#F2EFE9] border border-[#D8D3C8] space-y-3">
+                <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200/80 space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#1D3E8A] flex items-center gap-1.5">
+                    <span className="text-xs font-medium text-neutral-600 flex items-center gap-1.5">
                       <Smartphone className="w-3.5 h-3.5" />
-                      {isEn
-                        ? "Product Passport on Phone"
-                        : "Ficha que se abre en el móvil"}
-                    </span>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#EBF2EE] text-[#2B5B44]">
-                      0% Cookies
+                      {isEn ? "Product Passport" : "Pasaporte de Producto"}
                     </span>
                   </div>
 
-                  <div className="bg-white p-4 rounded-xl border border-[#CFC9BC] space-y-3">
+                  <div className="bg-white p-4 rounded-xl border border-neutral-200/80 space-y-3">
                     <div>
-                      <h4 className="font-bold text-sm text-[#181816]">
+                      <h4 className="font-semibold text-sm text-neutral-900">
                         {form.productName}
                       </h4>
-                      <p className="text-xs text-[#66635B]">{form.brandName}</p>
+                      <p className="text-xs text-neutral-500">{form.brandName}</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="p-2.5 rounded-lg bg-[#F7F5F0]">
-                        <span className="text-[10px] text-[#858075] block">
-                          {isEn ? "Barcode" : "Código"}
+                      <div className="p-2.5 rounded-lg bg-neutral-50">
+                        <span className="text-[10px] text-neutral-400 block">
+                          GTIN
                         </span>
-                        <strong className="font-mono text-[#181816]">
+                        <strong className="font-mono text-neutral-900">
                           {form.gtin}
                         </strong>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-[#F7F5F0]">
-                        <span className="text-[10px] text-[#858075] block">
-                          {isEn ? "Batch / Lot" : "Lote"}
+                      <div className="p-2.5 rounded-lg bg-neutral-50">
+                        <span className="text-[10px] text-neutral-400 block">
+                          {isEn ? "Batch" : "Lote"}
                         </span>
-                        <strong className="font-mono text-[#181816]">
+                        <strong className="font-mono text-neutral-900">
                           {form.batchLot || "—"}
                         </strong>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-[#F7F5F0]">
-                        <span className="text-[10px] text-[#858075] block">
+                      <div className="p-2.5 rounded-lg bg-neutral-50">
+                        <span className="text-[10px] text-neutral-400 block">
                           {isEn ? "Expiry" : "Caducidad"}
                         </span>
-                        <strong className="text-[#181816]">
+                        <strong className="text-neutral-900">
                           {form.expiryDate || "—"}
                         </strong>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-[#F7F5F0]">
-                        <span className="text-[10px] text-[#858075] block">
+                      <div className="p-2.5 rounded-lg bg-neutral-50">
+                        <span className="text-[10px] text-neutral-400 block">
                           {isEn ? "Origin" : "Origen"}
                         </span>
-                        <strong className="text-[#181816]">
+                        <strong className="text-neutral-900">
                           {form.originCountry}
                         </strong>
                       </div>
@@ -847,14 +781,14 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 </div>
               )}
 
-              {/* Download Buttons in Cobalt Ultramarine & Alabaster */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {/* Download Buttons */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <button
                   type="button"
                   onClick={handleDownload2DPNG}
-                  className="h-11 px-4 rounded-xl bg-[#1D3E8A] hover:bg-[#152E69] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-2xs transition-all cursor-pointer"
+                  className="h-10 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                  <ImageIcon className="w-4 h-4 text-[#B8CCF5]" />
+                  <ImageIcon className="w-3.5 h-3.5" />
                   <span>{isEn ? "Download PNG" : "Descargar PNG"}</span>
                 </button>
 
@@ -865,9 +799,9 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                       ? handleDownloadHybridSVG
                       : handleDownload2DSVG
                   }
-                  className="h-11 px-4 rounded-xl bg-[#E4E0D8] hover:bg-[#D8D3C8] text-[#181816] text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="h-10 px-4 rounded-xl bg-white hover:bg-neutral-50 text-neutral-800 border border-neutral-200 text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                  <Download className="w-4 h-4 text-[#4D4A44]" />
+                  <Download className="w-3.5 h-3.5" />
                   <span>{isEn ? "Download SVG" : "Descargar SVG"}</span>
                 </button>
               </div>
@@ -876,13 +810,13 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
                 href={localResolverPath}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-10 px-4 rounded-xl bg-[#F2EFE9] hover:bg-[#E4E0D8] text-[#1D3E8A] border border-[#D8D3C8] text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                className="w-full h-9 px-4 rounded-xl text-neutral-500 hover:text-neutral-900 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>
                   {isEn
-                    ? "Open public mobile page in new tab"
-                    : "Abrir la página móvil del QR en otra pestaña"}
+                    ? "Preview mobile QR page"
+                    : "Previsualizar página móvil"}
                 </span>
               </a>
             </div>
@@ -890,72 +824,21 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
         </div>
       </main>
 
-      {/* Warm Swiss Footer */}
-      <footer className="mt-16 bg-[#FBF9F5] border-t border-[#D8D3C8] py-10 px-4 sm:px-8 text-xs text-[#66635B]">
-        <div className="max-w-6xl mx-auto space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <details className="rounded-xl bg-white border border-[#D8D3C8] p-4">
-              <summary className="font-semibold text-[#181816] cursor-pointer list-none flex items-center justify-between gap-2">
-                <span>
-                  {isEn
-                    ? "What is GS1 Sunrise 2027?"
-                    : "¿Qué es el cambio GS1 Sunrise 2027?"}
-                </span>
-                <span className="text-[#858075]">+</span>
-              </summary>
-              <p className="mt-2 text-[#66635B] leading-relaxed">
-                {isEn
-                  ? "Starting in 2027, retail scanners worldwide will read 2D GS1 Digital Link QR codes that work both at checkout and on smartphones."
-                  : "A partir de 2027, los supermercados sustituyen el código de barras antiguo por un QR que pasa por caja y a la vez abre la ficha del producto en el móvil."}
-              </p>
-            </details>
-
-            <details className="rounded-xl bg-white border border-[#D8D3C8] p-4">
-              <summary className="font-semibold text-[#181816] cursor-pointer list-none flex items-center justify-between gap-2">
-                <span>
-                  {isEn
-                    ? "Should I print both 1D and 2D codes?"
-                    : "¿Puedo poner las barras y el QR juntos?"}
-                </span>
-                <span className="text-[#858075]">+</span>
-              </summary>
-              <p className="mt-2 text-[#66635B] leading-relaxed">
-                {isEn
-                  ? "Yes! Select the 'Bars + QR' tab above to download a hybrid label with both symbols side by side."
-                  : "Sí, pulsa en la pestaña 'Barras + QR' arriba a la derecha para descargar ambos juntos para tu envase."}
-              </p>
-            </details>
-
-            <details className="rounded-xl bg-white border border-[#D8D3C8] p-4">
-              <summary className="font-semibold text-[#181816] cursor-pointer list-none flex items-center justify-between gap-2">
-                <span>
-                  {isEn
-                    ? "Is it compliant with EU Product Passport?"
-                    : "¿Sirve para el Pasaporte Digital Europeo?"}
-                </span>
-                <span className="text-[#858075]">+</span>
-              </summary>
-              <p className="mt-2 text-[#66635B] leading-relaxed">
-                {isEn
-                  ? "Yes. Regulation (EU) 2024/1781 allows using the same GS1 QR code as the carrier for your EU Digital Product Passport."
-                  : "Sí. El Reglamento (UE) 2024/1781 permite usar este mismo QR como portador del Pasaporte Digital de Producto."}
-              </p>
-            </details>
-          </div>
-
-          {/* Programmatic SEO Tools Directory */}
-          <div className="pt-4 border-t border-[#E4E0D8]">
-            <p className="font-semibold text-[#181816] mb-2.5">
+      {/* Minimal Footer */}
+      <footer className="mt-16 bg-white border-t border-neutral-200/80 py-10 px-4 sm:px-6 text-xs text-neutral-500">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <div>
+            <p className="font-medium text-neutral-500 mb-2.5">
               {isEn
                 ? "Specialized Barcode & GS1 2D QR Tools:"
-                : "Herramientas Específicas de Código de Barras y QR GS1:"}
+                : "Herramientas de Código de Barras y QR GS1:"}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {SEO_GS1_TOOLS.map((tool) => (
                 <a
                   key={tool.slug}
                   href={`/tools/${tool.slug}`}
-                  className="px-3 py-1 rounded-lg bg-white border border-[#D8D3C8] hover:border-[#1D3E8A] text-xs text-[#4D4A44] hover:text-[#181816] transition-colors"
+                  className="px-2.5 py-1 rounded-lg bg-neutral-50 border border-neutral-200/80 hover:border-neutral-400 text-xs text-neutral-600 hover:text-neutral-900 transition-colors"
                 >
                   {isEn ? tool.navLabelEn : tool.navLabelEs}
                 </a>
@@ -963,13 +846,10 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#E4E0D8] text-[#858075]">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#1D3E8A]" />
-              <span>
-                GS1 Digital Link Standard · ISO/IEC 18004 · EU ESPR (2024/1781)
-              </span>
-            </div>
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-neutral-100 text-neutral-400">
+            <span>
+              GS1 Digital Link Standard · ISO/IEC 18004 · EU ESPR (2024/1781)
+            </span>
             <span>© {new Date().getFullYear()} GS1Link.studio</span>
           </div>
         </div>
