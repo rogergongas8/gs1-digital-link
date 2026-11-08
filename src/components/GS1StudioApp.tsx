@@ -138,8 +138,9 @@ export const GS1StudioApp: React.FC<{ initialTool?: SeoGS1Tool }> = ({
     if (form.originCountry) q.set("origin", form.originCountry);
     if (form.packagingMaterial) q.set("pack", form.packagingMaterial);
     if (form.carbonFootprintKg) q.set("co2", form.carbonFootprintKg);
+    q.set("lang", lang);
     return `${path}?${q.toString()}`;
-  }, [form, gs1Result.gtinValidation.gtin14]);
+  }, [form, gs1Result.gtinValidation.gtin14, lang]);
 
   const handleAutoFixCheckDigit = () => {
     if (gs1Result.gtinValidation.correctedGTIN) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useMemo } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import {
   ShieldCheck,
@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { validateAndNormalizeGTIN } from "@/lib/gs1-engine";
 import { GS1BrandLogo } from "@/components/GS1BrandLogo";
+import { generateQRMatrix } from "@/lib/qr-encoder";
 
 function GS1ResolverContent() {
   const params = useParams();
@@ -59,7 +60,15 @@ function GS1ResolverContent() {
       ? `${(Number(weightRaw) / 1000).toFixed(3)} kg`
       : "Standard Net Weight";
 
+  const isEn = searchParams.get("lang") !== "es";
   const validation = validateAndNormalizeGTIN(gtinRaw);
+
+  const currentUrl =
+    typeof window !== "undefined"
+      ? window.location.href
+      : `https://gs1-digital-link-lac.vercel.app/01/${gtinRaw}`;
+
+  const qrMatrix = useMemo(() => generateQRMatrix(currentUrl), [currentUrl]);
 
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 py-10 px-4 flex flex-col items-center justify-center font-sans">
@@ -93,6 +102,42 @@ function GS1ResolverContent() {
             <span className="font-mono text-[10px] text-slate-400">
               Release 1.3
             </span>
+          </div>
+
+          {/* Scannable QR Code */}
+          <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl flex flex-col items-center justify-center text-center">
+            <div className="bg-white p-3 rounded-xl shadow-xs">
+              <svg
+                viewBox={`0 0 ${qrMatrix.size + 4} ${qrMatrix.size + 4}`}
+                className="w-32 h-32"
+                shapeRendering="crispEdges"
+              >
+                <rect
+                  width={qrMatrix.size + 4}
+                  height={qrMatrix.size + 4}
+                  fill="#FFFFFF"
+                />
+                {qrMatrix.modules.map((row, r) =>
+                  row.map((cell, c) =>
+                    cell ? (
+                      <rect
+                        key={`${r}-${c}`}
+                        x={c + 2}
+                        y={r + 2}
+                        width={1}
+                        height={1}
+                        fill="#181816"
+                      />
+                    ) : null
+                  )
+                )}
+              </svg>
+            </div>
+            <p className="mt-2 text-[11px] font-mono text-slate-400">
+              {isEn
+                ? "GS1 2D Optical Barcode (Point of Sale & Smartphone)"
+                : "Código Óptico 2D GS1 (Caja Registradora y Móvil)"}
+            </p>
           </div>
 
         {/* Product Header */}
@@ -198,7 +243,11 @@ function GS1ResolverContent() {
             className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-blue-400 hover:text-blue-300 underline"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to GS1Link.studio Generator</span>
+            <span>
+              {isEn
+                ? "Back to GS1Link Studio Generator"
+                : "Volver al Generador GS1Link"}
+            </span>
           </Link>
         </div>
       </div>
